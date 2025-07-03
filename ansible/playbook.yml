@@ -1,0 +1,28 @@
+---
+- name: Configure VM using Azure module
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  collections:
+    - azure.azcollection
+
+  vars:
+    resource_group: "{{ lookup('env', 'AZURE_RESOURCE_GROUP') | default('myinfra-dev-rg') }}"
+    vm_name: "{{ lookup('env', 'AZURE_VM_NAME') | default('vm-dev-01') }}"
+    location: "{{ lookup('env', 'AZURE_LOCATION') | default('westeurope') }}"
+
+  tasks:
+    - name: Ensure the VM exists and is tagged
+      azure_rm_virtualmachine:
+        resource_group: "{{ resource_group }}"
+        name: "{{ vm_name }}"
+        location: "{{ location }}"
+        tags:
+          configured_by: "ansible"
+          environment: "dev"
+      register: vm_result
+
+    - name: Print VM facts
+      debug:
+        var: vm_result
