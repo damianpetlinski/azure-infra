@@ -44,3 +44,9 @@ The pipeline defined in `azure-pipelines.yml` will:
 | `TF_VERSION`            | `azure-pipelines.yml`     | Version of Terraform to install               |
 | `ENVIRONMENT`           | `azure-pipelines.yml`     | Target environment (e.g. `dev`)               |
 | `terraform-connection`  | Azure DevOps              | Service connection to Azure (ARM provider)    |
+
+## Disclaimer
+
+This project was prepared for deployment but has **not been tested in a live Azure or Azure DevOps environment** due to lack of access to a subscription during development.
+
+All code and pipelines are ready and syntactically valid. The project is structured for a successful end-to-end run once the required Azure resources and service connections are available.
